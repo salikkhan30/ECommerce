@@ -1,0 +1,60 @@
+﻿
+@model List<Product>
+
+@{
+    ViewBag.Title = "GetAll Products";
+}
+
+<div>
+    <form method="post">
+        <input type="search" id="searchTxt" />
+        <button type="button" id="searchBtn">Search</button>
+    </form>
+</div>
+<br />
+<div>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Product Name</td>
+                <td>Category</td>
+                <td>Price</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pro in Model)
+            {
+                <tr>
+                    <td>@pro.Name</td>
+                    <td>@pro.Code</td>
+                    <td>@pro.Price</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+    $('#searchBtn').click(function () {
+        
+        $.ajax({
+            type : 'GET',
+            url: '/Product/GetAll',
+            data: { search: $('#searchTxt').val() }
+
+        }).done(function (response) {
+            $('#tablediv').html(response);
+
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('fail');
+        })
+
+    });
+
+</script>

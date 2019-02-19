@@ -1,0 +1,30 @@
+﻿
+@model ClothBazar.Entities.Category
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<p>@Html.ActionLink("Back to List", "Index", "Category")</p>
+
+<h2>Edit Category</h2>
+
+<form method="post">
+
+    <label hidden>@Model.Id</label>
+
+    <label>Name</label>
+    <input type="text" name="Name" value="@Model.Name" />
+
+    <label>Description</label>
+    <input type="text" name="Description" value="@Model.Description" />
+
+    
+
+    <button type="submit">Edit</button>
+
+</form>
+
+
+
+

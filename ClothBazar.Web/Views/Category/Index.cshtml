@@ -1,0 +1,22 @@
+﻿@model List<ClothBazar.Entities.Category>
+
+@{
+    ViewBag.Title = "Category";
+}
+
+<p>@Html.ActionLink("Create Category", "Create", "Category")</p>
+
+<h2>List Of Categories</h2>
+
+@foreach (var cat in Model)
+{
+<p>
+    @cat.Id, @cat.Name , @cat.Description | @cat.LastModifiedOn |  
+    @Html.ActionLink("Edit", "Edit", "Category", new { id = cat.Id }) |
+    @Html.ActionLink("Delete", "Delete", "Category", new { id = cat.Id})
+</p>
+    
+}
+
+
+

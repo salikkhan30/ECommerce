@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C4871051-A4EC-4FFF-BBAA-B0DFAC03C7EA}</ProjectGuid>
+    <ProjectGuid>{5F158DCD-9067-451E-8014-81C7E743461E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClothBazar.Database</RootNamespace>
-    <AssemblyName>ClothBazar.Database</AssemblyName>
+    <RootNamespace>ClothBazar.Service</RootNamespace>
+    <AssemblyName>ClothBazar.Service</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -47,28 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CBContext.cs" />
-    <Compile Include="Migrations\201902161256423_Initialized.cs" />
-    <Compile Include="Migrations\201902161256423_Initialized.Designer.cs">
-      <DependentUpon>201902161256423_Initialized.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ProductService.cs" />
+    <Compile Include="CategoryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\ClothBazar.Database\ClothBazar.Database.csproj">
+      <Project>{c4871051-a4ec-4fff-bbaa-b0dfac03c7ea}</Project>
+      <Name>ClothBazar.Database</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClothBazar.Entities\ClothBazar.Entities.csproj">
-      <Project>{9bc6624f-af3e-479d-85fd-0e72e90f857c}</Project>
+      <Project>{9BC6624F-AF3E-479D-85FD-0E72E90F857C}</Project>
       <Name>ClothBazar.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902161256423_Initialized.resx">
-      <DependentUpon>201902161256423_Initialized.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

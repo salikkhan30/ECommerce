@@ -1,0 +1,30 @@
+﻿
+@model ClothBazar.Entities.Category
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<p>@Html.ActionLink("Back to List", "Index", "Category")</p>
+
+<h2>Delete Category</h2>
+
+<form method="post">
+
+    <label hidden>@Model.Id</label>
+
+    <label>Name</label>
+    <input type="text" name="Name" disabled value="@Model.Name" />
+
+    <label>Description</label>
+    <input type="text" name="Description" disabled value="@Model.Description" />
+
+    <label>@Model.LastModifiedOn</label>
+
+    <button type="submit">Delete</button>
+
+</form>
+
+
+
+

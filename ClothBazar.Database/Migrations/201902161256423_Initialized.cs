@@ -3,7 +3,7 @@ namespace ClothBazar.Database.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initialized : DbMigration
+    public partial class Initialized : DbMigration
     {
         public override void Up()
         {
@@ -25,6 +25,7 @@ namespace ClothBazar.Database.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
+                        Code = c.String(),
                         Description = c.String(),
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
                         CreatedOn = c.String(),

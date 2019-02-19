@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ClothBazar.Entities;
 using ClothBazar.Service;
+using Newtonsoft.Json;
 
 namespace ClothBazar.Web.Controllers
 {
@@ -19,55 +20,65 @@ namespace ClothBazar.Web.Controllers
         }
 
         // GET: Product
-        public ActionResult GetAll(string search)
+        public PartialViewResult ProductListView(string search)
         {
             var pro = this.service.GetProduct();
-            
+
             if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
                 pro = pro.Where(x => x.Name == search).ToList();
 
             return PartialView(pro);
         }
 
-        // GET: Product/Details/5
-        public ActionResult Details(int id)
+        // GET: Product
+        public JsonResult GetAll(string search)
         {
-            var pro = this.service.GetSingleProduct(id);
+            var pro = this.service.GetProduct();
+            
+            if (!string.IsNullOrEmpty(search) && !string.IsNullOrWhiteSpace(search))
+                pro = pro.Where(x => x.Name == search).ToList();
 
-            return PartialView(pro);
+            var json = JsonConvert.SerializeObject(pro);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Product/Create
-        public ActionResult Create()
+        [HttpGet]
+        public PartialViewResult ProductCreateView()
         {
             return PartialView();
         }
 
         //POST: Product/Create
         [HttpPost]
-        public ActionResult Create(Product dtoObject)
+        public RedirectToRouteResult CreateProduct(Product dtoObject)
         {
             // TODO: Add insert logic here
             this.service.SaveProduct(dtoObject);
 
-            return PartialView();
+            return RedirectToAction("ProductListView");
         }
 
         // GET: Product/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View();
+            var pro = this.service.GetSingleProduct(id);
+
+            return PartialView(pro);
         }
 
         // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Product dtoObject)
         {
             try
             {
                 // TODO: Add update logic here
+                this.service.UpdateProduct(dtoObject);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("ProductListView");
             }
             catch
             {
@@ -75,21 +86,19 @@ namespace ClothBazar.Web.Controllers
             }
         }
 
-        // GET: Product/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
         // POST: Product/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                var pro = this.service.GetSingleProduct(id);
 
-                return RedirectToAction("Index");
+                // TODO: Add update logic here
+                this.service.DeleteProduct(pro);
+
+                return RedirectToAction("ProductListView");
             }
             catch
             {

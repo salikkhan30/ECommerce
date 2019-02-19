@@ -6,21 +6,130 @@
 }
 
 
-<h3>Create Product</h3>
+<h3>New Product</h3>
 
-@{ Html.RenderAction("Create"); }
-
-<hr />
+<button type="button" id="newProductBtn">New Product</button>
 
 <h3>List Of Products</h3>
 
+
+<div>
+    <form>
+        <input type="search" id="searchTxt" />
+        <button type="button" id="searchBtn">Search</button>
+        <button type="button" id="refreshBtn">Refresh</button>
+    </form>
+</div>
+
+
 <div id="tablediv">
 
-    @{ Html.RenderAction("GetAll"); }
+    @{ Html.RenderAction("ProductListView"); }
+
+</div>
+
+<div id="actionContainer">
 
 </div>
 
 
+
+<script type="text/javascript">
+
+    $('#newProductBtn').click(function () {
+        
+        $.ajax({
+            type: 'GET',
+            url: '/Product/ProductCreateView'
+
+        }).done(function (response) {
+
+            $('#actionContainer').html(response);
+
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('fail');
+        })
+
+    });
+
+    $('#searchBtn').click(function () {
+
+        $.ajax({
+            type: 'GET',
+            url: '/Product/ProductListView',
+            data: { search: $('#searchTxt').val() }
+
+        }).done(function (response) {
+
+            $('#tablediv').html(response);
+
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('fail');
+        })
+    });
+
+    $('#refreshBtn').click(function () {
+
+        $('#searchTxt').val('');
+
+        $.ajax({
+            type: 'GET',
+            url: '/Product/ProductListView',
+            data: { search: '' }
+
+        }).done(function (response) {
+            //$('#tablediv talbe tbody').empty();
+            $('#tablediv').html(response);
+
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('fail');
+        })
+    });
+
+    // EDIT
+    $('.editBtn').click(function () {
+
+        $.ajax({
+            type: 'GET',
+            url: '/Product/Edit',
+            data: {
+                id: $(this).attr("data-id")
+            }
+
+        }).done(function (response) {
+
+            $('#actionContainer').html(response);
+
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('fail');
+        })
+    });
+
+    // DELETE
+    $('.deleteBtn').click(function () {
+
+        var confirmDel = confirm("Are you sure to delete");
+
+        if (confirmDel) {
+            $.ajax({
+                type: 'POST',
+                url: '/Product/Delete',
+                data: {
+                    id: $(this).attr("data-id")
+                }
+
+            }).done(function (response) {
+
+                $('#tablediv').html(response);
+
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('fail');
+            });
+
+        }
+    });
+
+</script>
 
 
 

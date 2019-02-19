@@ -1,0 +1,43 @@
+﻿
+
+<h3>Create Product</h3>
+
+<form id="createProductForm">
+
+    <label>Name</label>
+    <input type="text" name="Name" />
+    <br />
+    <label>Code</label>
+    <input type="text" name="Code" />
+    <br />
+    <label>Description</label>
+    <input type="text" name="Description" />
+    <br />
+    <label>Price</label>
+    <input type="number" name="Price" />
+    <br />
+    <button type="button" id="saveProductBtn">Save</button>
+
+</form>
+
+
+<script type="text/javascript">
+
+    $('#saveProductBtn').click(function () {
+
+        $.ajax({
+            type: 'POST',
+            url: '/Product/CreateProduct',
+            data: $("#createProductForm").serialize()
+
+        }).done(function (response) {
+            $('#tablediv').html(response);
+            //$('#actionContainer').empty();
+
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('fail');
+        })
+
+    });
+
+</script>

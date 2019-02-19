@@ -1,0 +1,36 @@
+﻿
+@model List<Product>
+
+
+<br />
+<div>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Product Name</td>
+                <td>Code</td>
+                <td>Description</td>
+                <td>Price</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pro in Model)
+            {
+            <tr>
+                <td>@pro.Name</td>
+                <td>@pro.Code</td>
+                <td>@pro.Description</td>
+                <td>@pro.Price</td>
+                <td>
+                    <button class="editBtn" data-id="@pro.Id">Edit</button>
+                    <button class="deleteBtn" data-id="@pro.Id">Delete</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
